@@ -1,12 +1,23 @@
+$("#botao-placar").on("click", mostraPlacar);
+
 function inserePlacar() {
     var corpoTabela = $(".placar").find("tbody");
     var usuario = "Leandro";
     var numPalavras = $("#contador-palavras").text();
 
     var linha = novaLinha(usuario, numPalavras);
-    linha.find(".botao-remover").click(removeLinha);
+    linha.find(".botao-remover").on("click", removeLinha);
 
-    corpoTabela.append(linha); // 'prepend' adiciona a linha no início da tabela --> 'append' adiciona no final
+    corpoTabela.prepend(linha); // 'prepend' adiciona a linha no início da tabela --> 'append' adiciona no final
+    $(".placar").slideDown();
+    rolarPlacar();
+}
+
+function rolarPlacar(){
+    var posicaoPlacar = $(".placar").offset().top;
+    $("body").animate({
+        scrollTop: posicaoPlacar + "px"
+    }, 1000);
 }
 
 function novaLinha(usuario, palavras) {
@@ -30,6 +41,16 @@ function novaLinha(usuario, palavras) {
 }
 
 function removeLinha() {
-    event.preventDefault();
-    $(this).parent().parent().remove();
+    window.event.preventDefault(); // função 'event' descontinuada, mas acessível através de 'window.event'
+    var linha = $(this).parent().parent();
+
+    linha.fadeOut(1000);
+    setTimeout(function(){
+        linha.remove();
+    }, 1000);
+}
+
+function mostraPlacar() {
+//  $(".placar").toggle(); --> essa função do jQuery mostra e esconde o Placar
+    $(".placar").stop().slideToggle(1000); // essa função provoca um deslocamento suave na página
 }

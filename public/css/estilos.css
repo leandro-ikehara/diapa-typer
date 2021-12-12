@@ -6,7 +6,17 @@
 
 .frase {
     font-size: 20px;
+    text-align: justify;
     /* text-align: left; */
+}
+
+#erro {
+    color: red;
+    display: none;
+}
+
+#spinner {
+    display: none;
 }
 
 .campo-desativado {
@@ -23,4 +33,12 @@
 
 .borda-vermelha {
     border: 3px solid red;
+}
+
+.placar {
+    display: none;
+}
+
+body {
+    overflow: scroll;
 }
