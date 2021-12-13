@@ -1,28 +1,12 @@
-body {
-    background-color: lightgray; 
-    overflow: scroll;
-}
-
 .campo-digitacao {
     font-size: 20px;
     height: 130px;
     border: 3px solid black;
-    background-color: whitesmoke;
 }
 
 .frase {
     font-size: 20px;
-    text-align: justify;
-    /* text-align: left; */
-}
-
-#erro {
-    color: red;
-    display: none;
-}
-
-#spinner {
-    display: none;
+    text-align: left;
 }
 
 .campo-desativado {
@@ -45,10 +29,36 @@ body {
     display: none;
 }
 
-#frase-id {
-    width: 35px;
+body {
+    overflow: scroll;
 }
 
-#botao-salvar {
+#erro{
+    color: red;
+    display: none;
+}
+
+#spinner {
+    display: none;
+}
+
+#frase-id{
+    width: 40px;
+}
+
+#botao-sync{
     float: right;
+}
+
+.select-usuarios{
+    display:inline-block;
+}
+
+#usuarios{
+    display:block;
+}
+
+.selectize-input {
+    width: 150px;
+    vertical-align: middle;
 }

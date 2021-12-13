@@ -1,40 +1,45 @@
-$("#botao-frase").on("click", fraseAleatoria);
-$("#botao-frase-id").on("click", buscaFrase);
+$("#botao-frase").click(fraseAleatoria);
+$("#botao-frase-id").click(buscaFrase);
 
-function fraseAleatoria(){
-
-    $("#spinner").toggle(); //novo, mostrando o spinner
-
-    $.get("http://localhost:3000/frases", trocaFrase)
+function fraseAleatoria() {
+	$("#spinner").toggle();
+    $.get("http://localhost:3000/frases", trocaFraseAleatoria)
     .fail(function(){
-        $("#erro").toggle();
-        setTimeout(function(){
-            $("#erro").toggle();
-        },1500);
+    	$("#erro").toggle();
+    	setTimeout(function(){
+    		$("#erro").toggle();
+    	},1500);
     })
-    .always(function(){ // novo, escondendo o spinner
-        $("#spinner").toggle();
+    .always(function(){
+    	$("#spinner").toggle();
     });
 }
 
-function trocaFrase(data) {
+function trocaFraseAleatoria(data) {
     var frase = $(".frase");
-    var idAleatorio = Math.floor(Math.random() * data.length);
-    frase.text(data[idAleatorio].texto);
+    var numeroAleatorio = Math.floor(Math.random() * data.length);
+
+    frase.text(data[numeroAleatorio].texto);
     atualizaTamanhoFrase();
-    atualizaTempoInicial(data[idAleatorio].tempo);
+    atualizaTempoInicial(data[numeroAleatorio].tempo);
 }
 
+
 function buscaFrase() {
+
     $("#spinner").toggle();
-    var fraseID = $("#frase-id").val();
-    var dados = {id: fraseID};
+    var fraseId = $("#frase-id").val();
+
+    //criacao do objeto JS que guarda a id
+    var dados = {id : fraseId}; 
+
+    //passando objecto como segundo parametro
     $.get("http://localhost:3000/frases", dados, trocaFrase)
     .fail(function(){
         $("#erro").toggle();
         setTimeout(function(){
             $("#erro").toggle();
-        },1500);
+    },2000);
     })
     .always(function(){
         $("#spinner").toggle();
@@ -42,8 +47,11 @@ function buscaFrase() {
 }
 
 function trocaFrase(data) {
+
+    console.log(data);
+
     var frase = $(".frase");
-    frase.text(data.texto);
+    frase.text(data.texto); //cuidado, texto com "o" no final 
     atualizaTamanhoFrase();
     atualizaTempoInicial(data.tempo);
 }
