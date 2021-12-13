@@ -1,7 +1,13 @@
+body {
+    background-color: lightgray; 
+    overflow: scroll;
+}
+
 .campo-digitacao {
     font-size: 20px;
     height: 130px;
     border: 3px solid black;
+    background-color: whitesmoke;
 }
 
 .frase {
@@ -39,6 +45,10 @@
     display: none;
 }
 
-body {
-    overflow: scroll;
+#frase-id {
+    width: 35px;
+}
+
+#botao-salvar {
+    float: right;
 }

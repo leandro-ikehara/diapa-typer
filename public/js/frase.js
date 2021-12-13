@@ -1,4 +1,5 @@
-$("#botao-frase").click(fraseAleatoria);
+$("#botao-frase").on("click", fraseAleatoria);
+$("#botao-frase-id").on("click", buscaFrase);
 
 function fraseAleatoria(){
 
@@ -22,4 +23,27 @@ function trocaFrase(data) {
     frase.text(data[idAleatorio].texto);
     atualizaTamanhoFrase();
     atualizaTempoInicial(data[idAleatorio].tempo);
+}
+
+function buscaFrase() {
+    $("#spinner").toggle();
+    var fraseID = $("#frase-id").val();
+    var dados = {id: fraseID};
+    $.get("http://localhost:3000/frases", dados, trocaFrase)
+    .fail(function(){
+        $("#erro").toggle();
+        setTimeout(function(){
+            $("#erro").toggle();
+        },1500);
+    })
+    .always(function(){
+        $("#spinner").toggle();
+    });
+}
+
+function trocaFrase(data) {
+    var frase = $(".frase");
+    frase.text(data.texto);
+    atualizaTamanhoFrase();
+    atualizaTempoInicial(data.tempo);
 }

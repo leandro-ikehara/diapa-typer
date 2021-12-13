@@ -1,4 +1,5 @@
 $("#botao-placar").on("click", mostraPlacar);
+$("#botao-salvar").on("click", salvaPlacar);
 
 function inserePlacar() {
     var corpoTabela = $(".placar").find("tbody");
@@ -53,4 +54,40 @@ function removeLinha() {
 function mostraPlacar() {
 //  $(".placar").toggle(); --> essa função do jQuery mostra e esconde o Placar
     $(".placar").stop().slideToggle(1000); // essa função provoca um deslocamento suave na página
+}
+
+function salvaPlacar() {
+    var placar = []; // salva o placar no array do json
+    var linhas = $("tbody>tr");
+    linhas.each(function(){
+        var usuario = $(this).find("td:nth-child(1)").text(); // recursos do jQuery e CSS
+        var palavras = $(this).find("td:nth-child(2)").text();
+
+        var score = { // cria um objeto para ser salvo no array
+            usuario: usuario,
+            pontos: palavras
+        };
+
+        placar.push(score);
+    });
+
+    var dados = {
+        placar: placar
+    };
+
+    $.post("http://localhost:3000/placar", dados, function(){
+        alert("Placar sincronizado com sucesso");
+    });
+}
+
+function atualizaPlacar() {
+
+    $.get("http://localhost:3000/placar", function(data){
+
+        $(data).each(function(){
+            var linha = novaLinha(this.usuario, this.pontos);
+            linha.find(".botao-remover").on("click", removeLinha);
+            $("tbody").append(linha);
+        });
+    });
 }
